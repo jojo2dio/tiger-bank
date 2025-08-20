@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tiger_bank_management?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: abcd1111
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.zoo.dal
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# Swagger配置
+springfox:
+  documentation:
+    swagger-ui:
+      path: /swagger-ui.html
+    open-api:
+      v3:
+        path: /v3/api-docs
+
+# 日志配置
+logging:
+  level:
+    org.zoo: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.mybatis: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
+  file:
+    name: logs/tiger-bank.log
