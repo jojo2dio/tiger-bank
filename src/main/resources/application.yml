@@ -11,7 +11,7 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:dal/*.xml
   type-aliases-package: org.zoo.dal
   configuration:
     map-underscore-to-camel-case: true

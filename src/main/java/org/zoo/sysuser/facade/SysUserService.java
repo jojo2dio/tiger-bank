@@ -1,27 +1,25 @@
-package org.zoo.sysuser.mapper;
+package org.zoo.sysuser.facade;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.zoo.sysuser.entity.SysUser;
+import org.zoo.sysuser.dal.SysUser;
 import java.util.List;
+import java.util.Map;
 
-@Mapper
-public interface SysUserMapper {
+public interface SysUserService {
     
     /**
      * 添加用户
      */
-    int add(SysUser sysUser);
+    void add(SysUser sysUser);
     
     /**
      * 根据ID删除用户
      */
-    int deleteById(Long id);
+    void deleteById(Long id);
     
     /**
      * 更新用户信息
      */
-    int update(SysUser sysUser);
+    void update(SysUser sysUser);
     
     /**
      * 根据ID获取用户
@@ -41,10 +39,10 @@ public interface SysUserMapper {
     /**
      * 分页获取用户列表
      */
-    List<SysUser> page(@Param("start") int start, @Param("limit") int limit);
+    Map<String, Object> page(int start, int limit);
     
     /**
-     * 获取用户总数
+     * 用户登录
      */
-    int count();
+    SysUser login(String username, String password);
 }

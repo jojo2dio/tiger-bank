@@ -1,11 +1,11 @@
-package org.zoo.sysuser.service.impl;
+package org.zoo.sysuser.facade.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zoo.common.util.PasswordUtil;
-import org.zoo.sysuser.entity.SysUser;
-import org.zoo.sysuser.mapper.SysUserMapper;
-import org.zoo.sysuser.service.SysUserService;
+import org.zoo.sysuser.dal.SysUser;
+import org.zoo.sysuser.dal.SysUserMapper;
+import org.zoo.sysuser.facade.SysUserService;
 import org.zoo.common.exception.ServiceException;
 
 import java.util.HashMap;

@@ -1,12 +1,12 @@
-package org.zoo.sysuser.controller;
+package org.zoo.sysuser.ws;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.zoo.common.result.Result;
-import org.zoo.sysuser.entity.SysUser;
-import org.zoo.sysuser.service.SysUserService;
+import org.zoo.sysuser.dal.SysUser;
+import org.zoo.sysuser.facade.SysUserService;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package org.zoo.sysuser.entity;
+package org.zoo.sysuser.dal;
 
 import java.time.LocalDateTime;
 import lombok.Data;

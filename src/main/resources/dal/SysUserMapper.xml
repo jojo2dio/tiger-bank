@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.zoo.sysuser.mapper.SysUserMapper">
+<mapper namespace="org.zoo.sysuser.dal.SysUserMapper">
 
     <sql id="Base_Column_List">
         id, username, password, real_name, phone, email, status, role, create_time, update_time
     </sql>
 
-    <insert id="add" parameterType="org.zoo.sysuser.entity.SysUser">
+    <insert id="add" parameterType="org.zoo.sysuser.dal.SysUser">
         INSERT INTO sys_user (
             username, password, real_name, phone, email, status, role, create_time, update_time
         ) VALUES (
@@ -19,7 +19,7 @@
         DELETE FROM sys_user WHERE id = #{id}
     </delete>
 
-    <update id="update" parameterType="org.zoo.sysuser.entity.SysUser">
+    <update id="update" parameterType="org.zoo.sysuser.dal.SysUser">
         UPDATE sys_user
         <set>
             <if test="username != null">username = #{username},</if>
@@ -34,28 +34,28 @@
         WHERE id = #{id}
     </update>
 
-    <select id="getById" parameterType="java.lang.Long" resultType="org.zoo.sysuser.entity.SysUser">
+    <select id="getById" parameterType="java.lang.Long" resultType="org.zoo.sysuser.dal.SysUser">
         SELECT 
         <include refid="Base_Column_List"/>
         FROM sys_user
         WHERE id = #{id}
     </select>
 
-    <select id="getByUsername" parameterType="java.lang.String" resultType="org.zoo.sysuser.entity.SysUser">
+    <select id="getByUsername" parameterType="java.lang.String" resultType="org.zoo.sysuser.dal.SysUser">
         SELECT 
         <include refid="Base_Column_List"/>
         FROM sys_user
         WHERE username = #{username}
     </select>
 
-    <select id="list" resultType="org.zoo.sysuser.entity.SysUser">
+    <select id="list" resultType="org.zoo.sysuser.dal.SysUser">
         SELECT 
         <include refid="Base_Column_List"/>
         FROM sys_user
         ORDER BY create_time DESC
     </select>
 
-    <select id="page" resultType="org.zoo.sysuser.entity.SysUser">
+    <select id="page" resultType="org.zoo.sysuser.dal.SysUser">
         SELECT 
         <include refid="Base_Column_List"/>
         FROM sys_user
