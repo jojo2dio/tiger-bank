@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zoo.repayment.dal.RepaymentRecordMapper">
+
+    <!-- 通用查询字段 -->
+    <sql id="Base_Column_List">
+        id, customer_id, loan_id, repayment_amount, principal, interest,
+        repayment_type, repayment_time, operator_id, remark, status, create_time
+    </sql>
+
+    <!-- 新增还款记录 -->
+    <insert id="insert" parameterType="org.zoo.repayment.dal.RepaymentRecord">
+        INSERT INTO repayment_record (
+            customer_id, loan_id, repayment_amount, principal, interest,
+            repayment_type, repayment_time, operator_id, remark, status, create_time
+        ) VALUES (
+                     #{customerId}, #{loanId}, #{repaymentAmount}, #{principal}, #{interest},
+                     #{repaymentType}, #{repaymentTime}, #{operatorId}, #{remark}, #{status}, #{createTime}
+                 )
+    </insert>
+
+    <!-- 根据ID查询还款记录 -->
+    <select id="selectById" parameterType="java.lang.Long" resultType="org.zoo.repayment.dal.RepaymentRecord">
+        SELECT <include refid="Base_Column_List"/> FROM repayment_record WHERE id = #{id}
+    </select>
+
+    <!-- 根据贷款ID查询还款记录列表 -->
+    <select id="selectByLoanId" parameterType="java.lang.Long" resultType="org.zoo.repayment.dal.RepaymentRecord">
+        SELECT <include refid="Base_Column_List"/> FROM repayment_record
+        WHERE loan_id = #{loanId}
+        ORDER BY repayment_time DESC
+    </select>
+
+    <!-- 根据企业ID查询还款记录列表 -->
+    <select id="selectByCustomerId" parameterType="java.lang.Long" resultType="org.zoo.repayment.dal.RepaymentRecord">
+        SELECT <include refid="Base_Column_List"/> FROM repayment_record
+        WHERE customer_id = #{customerId}
+        ORDER BY repayment_time DESC
+    </select>
+
+    <!-- 查询指定贷款的总还款金额 -->
+    <select id="selectTotalAmountByLoanId" parameterType="java.lang.Long" resultType="java.math.BigDecimal">
+        SELECT IFNULL(SUM(repayment_amount), 0) FROM repayment_record
+        WHERE loan_id = #{loanId} AND status = 1
+    </select>
+
+    <!-- 查询指定贷款的总本金还款额 -->
+    <select id="selectTotalPrincipalByLoanId" parameterType="java.lang.Long" resultType="java.math.BigDecimal">
+        SELECT IFNULL(SUM(principal), 0) FROM repayment_record
+        WHERE loan_id = #{loanId} AND status = 1
+    </select>
+
+</mapper>
