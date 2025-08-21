@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zoo.loan.dal.LoanMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, product_name, customer_id, amount, remaining_amount, interest_rate, term,
+        grant_date, due_date, status, approval_user_id, approval_time, approval_remark,
+        create_user_id, create_time, update_time
+    </sql>
+
+    <!-- 新增贷款 -->
+    <insert id="insert" parameterType="org.zoo.loan.dal.Loan">
+        INSERT INTO loan (
+            product_name, customer_id, amount, remaining_amount, interest_rate, term,
+            grant_date, due_date, status, approval_user_id, approval_time, approval_remark,
+            create_user_id, create_time, update_time
+        ) VALUES (
+                     #{productName}, #{customerId}, #{amount}, #{remainingAmount}, #{interestRate}, #{term},
+                     #{grantDate}, #{dueDate}, #{status}, #{approvalUserId}, #{approvalTime}, #{approvalRemark},
+                     #{createUserId}, #{createTime}, #{updateTime}
+                 )
+    </insert>
+
+    <!-- 更新贷款 -->
+    <update id="update" parameterType="org.zoo.loan.dal.Loan">
+        UPDATE loan
+        <set>
+            <if test="productName != null">product_name = #{productName},</if>
+            <if test="customerId != null">customer_id = #{customerId},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="remainingAmount != null">remaining_amount = #{remainingAmount},</if>
+            <if test="interestRate != null">interest_rate = #{interestRate},</if>
+            <if test="term != null">term = #{term},</if>
+            <if test="grantDate != null">grant_date = #{grantDate},</if>
+            <if test="dueDate != null">due_date = #{dueDate},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="approvalUserId != null">approval_user_id = #{approvalUserId},</if>
+            <if test="approvalTime != null">approval_time = #{approvalTime},</if>
+            <if test="approvalRemark != null">approval_remark = #{approvalRemark},</if>
+            update_time = #{updateTime}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID删除贷款 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM loan WHERE id = #{id}
+    </delete>
+
+    <!-- 根据ID查询贷款 -->
+    <select id="selectById" parameterType="java.lang.Long" resultType="org.zoo.loan.dal.Loan">
+        SELECT <include refid="Base_Column_List"/> FROM loan WHERE id = #{id}
+    </select>
+
+    <!-- 根据企业ID查询贷款列表 -->
+    <select id="selectByCustomerId" parameterType="java.lang.Long" resultType="org.zoo.loan.dal.Loan">
+        SELECT <include refid="Base_Column_List"/> FROM loan
+        WHERE customer_id = #{customerId}
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 查询所有贷款 -->
+    <select id="selectAll" resultType="org.zoo.loan.dal.Loan">
+        SELECT <include refid="Base_Column_List"/> FROM loan ORDER BY create_time DESC
+    </select>
+
+    <!-- 分页查询贷款 -->
+    <select id="selectByPage" resultType="org.zoo.loan.dal.Loan">
+        SELECT <include refid="Base_Column_List"/> FROM loan
+        ORDER BY create_time DESC
+        LIMIT #{start}, #{limit}
+    </select>
+
+    <!-- 查询总记录数 -->
+    <select id="selectTotalCount" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM loan
+    </select>
+
+    <!-- 更新贷款剩余金额 -->
+    <update id="updateRemainingAmount">
+        UPDATE loan
+        SET remaining_amount = #{remainingAmount},
+            update_time = CURRENT_TIMESTAMP
+        WHERE id = #{id}
+    </update>
+
+</mapper>

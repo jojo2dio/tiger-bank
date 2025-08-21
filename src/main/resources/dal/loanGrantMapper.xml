@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zoo.loan.dal.LoanGrantMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, loan_id, customer_id, grant_amount, grant_time, operator_id,
+        remark, status, create_time
+    </sql>
+
+    <!-- 新增放款记录 -->
+    <insert id="insert" parameterType="org.zoo.loan.dal.LoanGrant">
+        INSERT INTO loan_grant (
+            loan_id, customer_id, grant_amount, grant_time, operator_id,
+            remark, status, create_time
+        ) VALUES (
+                     #{loanId}, #{customerId}, #{grantAmount}, #{grantTime}, #{operatorId},
+                     #{remark}, #{status}, #{createTime}
+                 )
+    </insert>
+
+    <!-- 根据ID查询放款记录 -->
+    <select id="selectById" parameterType="java.lang.Long" resultType="org.zoo.loan.dal.LoanGrant">
+        SELECT <include refid="Base_Column_List"/> FROM loan_grant WHERE id = #{id}
+    </select>
+
+    <!-- 根据贷款ID查询放款记录列表 -->
+    <select id="selectByLoanId" parameterType="java.lang.Long" resultType="org.zoo.loan.dal.LoanGrant">
+        SELECT <include refid="Base_Column_List"/> FROM loan_grant
+        WHERE loan_id = #{loanId}
+        ORDER BY grant_time DESC
+    </select>
+
+    <!-- 根据企业ID查询放款记录列表 -->
+    <select id="selectByCustomerId" parameterType="java.lang.Long" resultType="org.zoo.loan.dal.LoanGrant">
+        SELECT <include refid="Base_Column_List"/> FROM loan_grant
+        WHERE customer_id = #{customerId}
+        ORDER BY grant_time DESC
+    </select>
+
+</mapper>
