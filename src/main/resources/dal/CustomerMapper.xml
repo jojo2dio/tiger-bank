@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zoo.customer.dal.CustomerMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, enterprise_name, credit_code, register_address, registered_capital,
+        business_scope, legal_person, contact_phone, status, create_time,
+        update_time, create_user_id
+    </sql>
+
+    <!-- 新增客户 -->
+    <insert id="insert" parameterType="org.zoo.customer.dal.Customer">
+        INSERT INTO customer (
+            enterprise_name, credit_code, register_address, registered_capital,
+            business_scope, legal_person, contact_phone, status, create_time,
+            update_time, create_user_id
+        ) VALUES (
+                     #{enterpriseName}, #{creditCode}, #{registerAddress}, #{registeredCapital},
+                     #{businessScope}, #{legalPerson}, #{contactPhone}, #{status}, #{createTime},
+                     #{updateTime}, #{createUserId}
+                 )
+    </insert>
+
+    <!-- 更新客户 -->
+    <update id="update" parameterType="org.zoo.customer.dal.Customer">
+        UPDATE customer
+        <set>
+            <if test="enterpriseName != null">enterprise_name = #{enterpriseName},</if>
+            <if test="creditCode != null">credit_code = #{creditCode},</if>
+            <if test="registerAddress != null">register_address = #{registerAddress},</if>
+            <if test="registeredCapital != null">registered_capital = #{registeredCapital},</if>
+            <if test="businessScope != null">business_scope = #{businessScope},</if>
+            <if test="legalPerson != null">legal_person = #{legalPerson},</if>
+            <if test="contactPhone != null">contact_phone = #{contactPhone},</if>
+            <if test="status != null">status = #{status},</if>
+            update_time = #{updateTime}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据ID删除客户 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM customer WHERE id = #{id}
+    </delete>
+
+    <!-- 根据ID查询客户 -->
+    <select id="selectById" parameterType="java.lang.Long" resultType="org.zoo.customer.dal.Customer">
+        SELECT <include refid="Base_Column_List"/> FROM customer WHERE id = #{id}
+    </select>
+
+    <!-- 根据统一社会信用代码查询客户 -->
+    <select id="selectByCreditCode" parameterType="java.lang.String" resultType="org.zoo.customer.dal.Customer">
+        SELECT <include refid="Base_Column_List"/> FROM customer WHERE credit_code = #{creditCode}
+    </select>
+
+    <!-- 查询所有客户 -->
+    <select id="selectAll" resultType="org.zoo.customer.dal.Customer">
+        SELECT <include refid="Base_Column_List"/> FROM customer ORDER BY create_time DESC
+    </select>
+
+    <!-- 分页查询客户 -->
+    <select id="selectByPage" resultType="org.zoo.customer.dal.Customer">
+        SELECT <include refid="Base_Column_List"/> FROM customer
+        ORDER BY create_time DESC
+        LIMIT #{start}, #{limit}
+    </select>
+
+    <!-- 查询总记录数 -->
+    <select id="selectTotalCount" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM customer
+    </select>
+
+</mapper>
