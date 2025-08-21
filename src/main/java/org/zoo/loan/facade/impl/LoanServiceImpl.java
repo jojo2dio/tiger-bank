@@ -46,8 +46,8 @@ public class LoanServiceImpl implements LoanService {
     public void add(LoanDTO loanDTO, Long createUserId) {
         // 验证客户是否存在
         Customer customer = customerMapper.selectById(loanDTO.getCustomerId());
-        if (customer == null) {
-            throw new ServiceException("企业不存在");
+        if (customer != null) {
+            throw new ServiceException("企业已存在");
         }
 
         // 验证贷款金额是否合法
@@ -155,7 +155,7 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public void approve(LoanApprovalDTO approvalDTO, Long approvalUserId) {
         Long createUserId = CurrentHolder.getCurrentId();
-        if (createUserId != 1) {
+        if (createUserId != 1L) {
             throw new ServiceException("只有管理员有资格审批");
         }
         // 检查贷款是否存在

@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.zoo</groupId>
     <artifactId>tiger-bank-management</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
     <name>tiger-bank</name>
     <description>Tiger Bank Credit Management System</description>
 
@@ -67,19 +67,18 @@
             <artifactId>springfox-boot-starter</artifactId>
             <version>${swagger.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+            <version>4.11.0</version> <!-- 版本需与项目中Mockito版本兼容 -->
+            <scope>test</scope>
+        </dependency>
 
         <!--分页插件PageHelper-->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.4.7</version>
-        </dependency>
-
-        <!--阿里云OSS依赖-->
-        <dependency>
-            <groupId>com.aliyun.oss</groupId>
-            <artifactId>aliyun-sdk-oss</artifactId>
-            <version>3.17.4</version>
         </dependency>
 
         <dependency>

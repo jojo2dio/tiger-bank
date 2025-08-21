@@ -31,8 +31,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new ServiceException("该统一社会信用代码已被注册");
         }
 
+        // 检查客户是否已存在
+        Customer customer = customerMapper.selectById(customerDTO.getId());
+        if (customer != null) {
+            throw new ServiceException("客户已存在");
+        }
+
         // DTO转换为Entity
-        Customer customer = new Customer();
+        customer = new Customer();
         BeanUtils.copyProperties(customerDTO, customer);
         customer.setCreateUserId(createUserId);
         customer.setCreateTime(LocalDateTime.now());
