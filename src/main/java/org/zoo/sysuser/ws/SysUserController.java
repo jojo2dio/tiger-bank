@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.zoo.common.result.Result;
 import org.zoo.sysuser.dal.SysUser;
 import org.zoo.sysuser.facade.SysUserService;
+import org.zoo.sysuser.model.LoginVO;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,21 +22,21 @@ public class SysUserController {
 
     @PostMapping("/add")
     @ApiOperation("添加用户")
-    public Result add(@RequestBody SysUser sysUser) {
+    public Result<Void> add(@RequestBody SysUser sysUser) {
         sysUserService.add(sysUser);
         return Result.success();
     }
 
     @DeleteMapping("/delete/{id}")
     @ApiOperation("根据ID删除用户")
-    public Result deleteById(@PathVariable Long id) {
+    public Result<Void> deleteById(@PathVariable Long id) {
         sysUserService.deleteById(id);
         return Result.success();
     }
 
     @PutMapping("/update")
     @ApiOperation("更新用户信息")
-    public Result update(@RequestBody SysUser sysUser) {
+    public Result<Void> update(@RequestBody SysUser sysUser) {
         sysUserService.update(sysUser);
         return Result.success();
     }
@@ -53,7 +55,7 @@ public class SysUserController {
 
     @GetMapping("/list")
     @ApiOperation("获取所有用户列表")
-    public Result list() {
+    public Result<List<SysUser>> list() {
         return Result.success(sysUserService.list());
     }
 
@@ -67,7 +69,7 @@ public class SysUserController {
 
     @PostMapping("/login")
     @ApiOperation("用户登录")
-    public Result<SysUser> login(
+    public Result<LoginVO> login(
             @RequestParam String username,
             @RequestParam String password) {
         return Result.success(sysUserService.login(username, password));

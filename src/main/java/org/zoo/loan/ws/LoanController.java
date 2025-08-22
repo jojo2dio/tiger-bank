@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.zoo.common.result.Result;
+import org.zoo.common.util.CurrentHolder;
 import org.zoo.loan.facade.LoanService;
 import org.zoo.loan.model.LoanApprovalDTO;
 import org.zoo.loan.model.LoanDTO;
@@ -26,8 +27,7 @@ public class LoanController {
     @PostMapping
     @ApiOperation(value = "新增贷款", notes = "添加新的贷款项目信息")
     public Result<Void> add(@RequestBody LoanDTO loanDTO) {
-        // 实际项目中应从登录信息中获取当前用户ID，这里暂时硬编码为2
-        Long createUserId = 2L;
+        Long createUserId = CurrentHolder.getCurrentId();
         loanService.add(loanDTO, createUserId);
         return Result.success();
     }
@@ -75,8 +75,7 @@ public class LoanController {
     @PostMapping("/approve")
     @ApiOperation(value = "审批贷款", notes = "对贷款项目进行审批操作，仅管理员可执行")
     public Result<Void> approve(@RequestBody LoanApprovalDTO approvalDTO) {
-        // 实际项目中应从登录信息中获取当前用户ID，这里暂时硬编码为1（管理员）
-        Long approvalUserId = 1L;
+        Long approvalUserId = CurrentHolder.getCurrentId();
         loanService.approve(approvalDTO, approvalUserId);
         return Result.success();
     }

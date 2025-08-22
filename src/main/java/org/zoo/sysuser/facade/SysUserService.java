@@ -1,6 +1,8 @@
 package org.zoo.sysuser.facade;
 
 import org.zoo.sysuser.dal.SysUser;
+import org.zoo.sysuser.model.LoginVO;
+
 import java.util.List;
 import java.util.Map;
 
@@ -44,5 +46,5 @@ public interface SysUserService {
     /**
      * 用户登录
      */
-    SysUser login(String username, String password);
+    LoginVO login(String username, String password);
 }

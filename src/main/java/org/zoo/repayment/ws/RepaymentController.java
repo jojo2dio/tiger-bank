@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.zoo.common.result.Result;
+import org.zoo.common.util.CurrentHolder;
 import org.zoo.repayment.facade.RepaymentService;
 import org.zoo.repayment.model.RepaymentDTO;
 import org.zoo.repayment.model.RepaymentVO;
@@ -26,8 +27,7 @@ public class RepaymentController {
     @PostMapping
     @ApiOperation(value = "创建还款记录", notes = "新增还款记录并更新贷款剩余金额")
     public Result<Void> createRepayment(@RequestBody RepaymentDTO repaymentDTO) {
-        // 实际项目中从登录信息获取当前用户ID
-        Long operatorId = 2L;
+        Long operatorId = CurrentHolder.getCurrentId();
         repaymentService.createRepayment(repaymentDTO, operatorId);
         return Result.success();
     }

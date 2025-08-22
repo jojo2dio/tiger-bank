@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import org.zoo.common.result.Result;
+import org.zoo.common.util.CurrentHolder;
 import org.zoo.loan.facade.LoanGrantService;
 import org.zoo.loan.model.LoanGrantDTO;
 import org.zoo.loan.model.LoanGrantVO;
@@ -25,8 +26,7 @@ public class LoanGrantController {
     @PostMapping
     @ApiOperation(value = "创建放款记录", notes = "为贷款项目创建放款记录")
     public Result<Void> createGrantRecord(@RequestBody LoanGrantDTO grantDTO) {
-        // 实际项目中应从登录信息中获取当前用户ID
-        Long operatorId = 1L;
+        Long operatorId = CurrentHolder.getCurrentId();
         loanGrantService.createGrantRecord(grantDTO, operatorId);
         return Result.success();
     }
