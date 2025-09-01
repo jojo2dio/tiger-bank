@@ -41,7 +41,7 @@ public interface SysUserService {
     /**
      * 分页获取用户列表
      */
-    Map<String, Object> page(int start, int limit);
+    List<SysUser> page(int start, int limit);
     
     /**
      * 用户登录

@@ -49,6 +49,23 @@ public class RepaymentController {
     public Result<List<RepaymentVO>> listByCustomerId(@PathVariable Long customerId) {
         return Result.success(repaymentService.listByCustomerId(customerId));
     }
+    @GetMapping
+    @ApiOperation(value = "查询所有还款记录", notes = "获取系统中所有的还款记录")
+    public Result<List<RepaymentVO>> listAll() {
+        return Result.success(repaymentService.listAll());
+    }
+
+    @GetMapping("/page")
+    @ApiOperation(value = "分页查询还款记录", notes = "分页获取还款记录列表，支持起始页和每页条数参数")
+    public Result<List<RepaymentVO>> page(
+            @RequestParam(defaultValue = "0") int start,
+            @RequestParam(defaultValue = "10") int limit,
+            @RequestParam(required = false) Long customerId,
+            @RequestParam(required = false) Long loanId,
+            @RequestParam(required = false) Integer repaymentType,
+            @RequestParam(required = false) Integer status) {
+        return Result.success(repaymentService.page(start, limit, customerId, loanId, repaymentType, status));
+    }
 
     @GetMapping("/total/amount/{loanId}")
     @ApiOperation(value = "查询贷款总还款金额", notes = "根据贷款ID查询累计还款总金额")

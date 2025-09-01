@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -116,6 +117,28 @@ public class RepaymentServiceImpl implements RepaymentService {
     @Override
     public BigDecimal getTotalPrincipalByLoanId(Long loanId) {
         return repaymentRecordMapper.selectTotalPrincipalByLoanId(loanId);
+    }
+
+    @Override
+    public List<RepaymentVO> listAll() {
+        List<RepaymentVO> repaymentVOS = repaymentRecordMapper.selectAll();
+        repaymentVOS.forEach(r -> {
+            r.setCustomerName(customerMapper.selectById(r.getCustomerId()).getEnterpriseName());
+            r.setProductName(loanMapper.selectById(r.getLoanId()).getProductName());
+            r.setOperatorName((sysUserMapper.getById(r.getOperatorId()).getRealName()));
+        });
+        return repaymentVOS;
+    }
+
+    @Override
+    public List<RepaymentVO> page(int start, int limit, Long customerId, Long loanId, Integer repaymentType, Integer status) {
+        List<RepaymentVO> repaymentVOS = repaymentRecordMapper.selectPage(start, limit, customerId, loanId, repaymentType, status);
+        repaymentVOS.forEach(r -> {
+            r.setCustomerName(customerMapper.selectById(r.getCustomerId()).getEnterpriseName());
+            r.setProductName(loanMapper.selectById(r.getLoanId()).getProductName());
+            r.setOperatorName((sysUserMapper.getById(r.getOperatorId()).getRealName()));
+        });
+        return repaymentVOS;
     }
 
     /**

@@ -50,4 +50,27 @@
         WHERE loan_id = #{loanId} AND status = 1
     </select>
 
+    <!-- 查询所有 -->
+    <select id="selectAll" resultType="org.zoo.repayment.model.RepaymentVO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM repayment_record
+        ORDER BY create_time DESC
+    </select>
+
+    <!-- 分页查询 -->
+    <select id="selectPage" resultType="org.zoo.repayment.model.RepaymentVO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM repayment_record
+        <where>
+            <if test="customerId != null">AND customer_id = #{customerId}</if>
+            <if test="loanId != null">AND loan_id = #{loanId}</if>
+            <if test="repaymentType != null">AND repayment_type = #{repaymentType}</if>
+            <if test="status != null">AND status = #{status}</if>
+        </where>
+        ORDER BY repayment_time DESC
+        LIMIT #{start}, #{limit}
+    </select>
+
 </mapper>

@@ -101,16 +101,11 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public Map<String, Object> page(int start, int limit) {
+    public List<SysUser> page(int start, int limit) {
         List<SysUser> users = sysUserMapper.page(start, limit);
         // 密码脱敏
         users.forEach(user -> user.setPassword(null));
-
-        int total = sysUserMapper.count();
-        Map<String, Object> result = new HashMap<>();
-        result.put("list", users);
-        result.put("total", total);
-        return result;
+        return users;
     }
 
     @Override

@@ -62,7 +62,7 @@ public class SysUserController {
 
     @GetMapping("/page")
     @ApiOperation("分页获取用户列表")
-    public Result<Map<String, Object>> page(
+    public Result<List<SysUser>> page(
             @RequestParam(defaultValue = "0") int start,
             @RequestParam(defaultValue = "10") int limit) {
         return Result.success(sysUserService.page(start, limit));

@@ -1,6 +1,8 @@
 package org.zoo.repayment.dal;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.zoo.repayment.model.RepaymentVO;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -38,4 +40,8 @@ public interface RepaymentRecordMapper {
      * 查询指定贷款的总本金还款额
      */
     BigDecimal selectTotalPrincipalByLoanId(Long loanId);
+
+    List<RepaymentVO> selectAll();
+
+    List<RepaymentVO> selectPage(int start, int limit, Long customerId, Long loanId, Integer repaymentType, Integer status);
 }

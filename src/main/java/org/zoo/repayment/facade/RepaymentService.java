@@ -38,4 +38,8 @@ public interface RepaymentService {
      * 查询指定贷款的总本金还款额
      */
     BigDecimal getTotalPrincipalByLoanId(Long loanId);
+
+    List<RepaymentVO> listAll();
+
+    List<RepaymentVO> page(int start, int limit, Long customerId, Long loanId, Integer repaymentType, Integer status);
 }
