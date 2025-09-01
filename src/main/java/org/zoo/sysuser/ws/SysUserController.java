@@ -15,6 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/sys/user")
 @Api(tags = "系统用户管理")
+@CrossOrigin
 public class SysUserController {
 
     @Autowired
