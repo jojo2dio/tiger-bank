@@ -2,6 +2,7 @@ package org.zoo.customer.dal;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.zoo.customer.dal.Customer;
+import org.zoo.customer.model.CustomerVO;
 
 import java.util.List;
 
@@ -49,4 +50,6 @@ public interface CustomerMapper {
      * 查询总记录数
      */
     int selectTotalCount();
+
+    List<CustomerVO> selectByConditions(String creditCode, String enterpriseName);
 }

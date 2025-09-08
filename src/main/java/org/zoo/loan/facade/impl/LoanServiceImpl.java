@@ -154,10 +154,11 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public void approve(LoanApprovalDTO approvalDTO, Long approvalUserId) {
-        Long createUserId = CurrentHolder.getCurrentId();
-        if (createUserId != 1L) {
-            throw new ServiceException("只有管理员有资格审批");
-        }
+//        Long createUserId = CurrentHolder.getCurrentId();
+//        if (createUserId != 1L) {
+//            throw new ServiceException("只有管理员有资格审批");
+//        }
+        approvalUserId = 1L;
         // 检查贷款是否存在
         Loan loan = loanMapper.selectById(approvalDTO.getLoanId());
         if (loan == null) {

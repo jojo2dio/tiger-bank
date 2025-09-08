@@ -71,4 +71,32 @@
         SELECT COUNT(1) FROM customer
     </select>
 
+    <!-- 条件查询客户 -->
+    <select id="selectByConditions" resultType="org.zoo.customer.dal.Customer">
+        SELECT
+        id,
+        enterprise_name as enterpriseName,
+        credit_code as creditCode,
+        register_address as registerAddress,
+        registered_capital as registeredCapital,
+        business_scope as businessScope,
+        legal_person as legalPerson,
+        contact_phone as contactPhone,
+        status,
+        CASE WHEN status = 0 THEN '禁用' WHEN status = 1 THEN '正常' END as statusName,
+        create_time as createTime
+        FROM customer
+        <where>
+            <!-- 动态添加信用代码条件 -->
+            <if test="creditCode != null and creditCode != ''">
+                AND credit_code = #{creditCode}
+            </if>
+            <!-- 动态添加企业名称条件（模糊查询） -->
+            <if test="enterpriseName != null and enterpriseName != ''">
+                AND enterprise_name LIKE CONCAT('%', #{enterpriseName}, '%')
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
 </mapper>

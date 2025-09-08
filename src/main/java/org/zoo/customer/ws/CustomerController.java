@@ -70,4 +70,12 @@ public class CustomerController {
             @RequestParam(defaultValue = "10") int limit) {
         return Result.success(customerService.page(start, limit));
     }
+    @GetMapping("/queryParams")
+    @ApiOperation(value = "条件查询客户", notes = "根据信用代码和企业名称查询客户，参数可任选")
+    public Result<List<CustomerVO>> queryCustomers(
+            @RequestParam(required = false) String creditCode,
+            @RequestParam(required = false) String enterpriseName) {
+        List<CustomerVO> customerVOs = customerService.queryByConditions(creditCode, enterpriseName);
+        return Result.success(customerVOs);
+    }
 }

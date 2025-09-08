@@ -10,7 +10,6 @@ import org.zoo.sysuser.facade.SysUserService;
 import org.zoo.sysuser.model.LoginVO;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/sys/user")

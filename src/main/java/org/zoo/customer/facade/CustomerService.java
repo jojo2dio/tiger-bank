@@ -43,4 +43,6 @@ public interface CustomerService {
      * 分页查询客户
      */
     List<CustomerVO> page(int start, int limit);
+
+    List<CustomerVO> queryByConditions(String creditCode, String enterpriseName);
 }

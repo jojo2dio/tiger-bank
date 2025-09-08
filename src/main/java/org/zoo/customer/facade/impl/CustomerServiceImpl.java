@@ -111,6 +111,11 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> customers = customerMapper.selectByPage(start, limit);
         return convertToVOList(customers);
     }
+    @Override
+    public List<CustomerVO> queryByConditions(String creditCode, String enterpriseName) {
+        // 调用mapper进行条件查询
+        return customerMapper.selectByConditions(creditCode, enterpriseName);
+    }
 
     /**
      * 将Entity转换为VO
@@ -135,6 +140,9 @@ public class CustomerServiceImpl implements CustomerService {
         for (Customer customer : customers) {
             voList.add(convertToVO(customer));
         }
+        voList.sort( (e1,e2) -> {
+            return (int) (e1.getId() - e2.getId());
+        });
         return voList;
     }
 }
