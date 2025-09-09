@@ -21,7 +21,6 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -48,6 +47,7 @@ public class RepaymentServiceImpl implements RepaymentService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void createRepayment(RepaymentDTO repaymentDTO, Long operatorId) {
+        operatorId = 1L;
         // 1. 验证贷款是否存在
         Loan loan = loanMapper.selectById(repaymentDTO.getLoanId());
         if (loan == null) {
