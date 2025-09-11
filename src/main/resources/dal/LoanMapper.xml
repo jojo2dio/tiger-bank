@@ -85,4 +85,30 @@
         WHERE id = #{id}
     </update>
 
+    <!-- 新增：根据条件查询贷款 -->
+    <select id="selectByCondition" parameterType="org.zoo.loan.dal.Loan" resultType="org.zoo.loan.dal.Loan">
+        SELECT <include refid="Base_Column_List"/> FROM loan
+        <where>
+            <if test="status != null">AND status = #{status}</if>
+            <if test="id != null">AND id = #{id}</if>
+            <if test="customerId != null">AND customer_id = #{customerId}</if>
+            <!-- 可根据需要添加更多查询条件 -->
+        </where>
+        ORDER BY create_time ASC
+    </select>
+
+    <select id="selectByStatus" resultType="org.zoo.loan.dal.Loan">
+        SELECT * FROM loan
+        WHERE status = #{status}
+        <!-- 可选：添加创建时间条件，只处理指定时间范围内的贷款 -->
+        <!-- AND create_time <= NOW() -->
+    </select>
+
+    <!-- 新增：更新贷款状态 -->
+    <update id="updateStatusById">
+        UPDATE loan
+        SET status = #{status},
+            update_time = NOW()
+        WHERE id = #{id}
+    </update>
 </mapper>

@@ -9,7 +9,7 @@ CREATE TABLE `loan` (
                         `term` int NOT NULL COMMENT '贷款期限(月)',
                         `grant_date` date NOT NULL COMMENT '放款日期',
                         `due_date` date NOT NULL COMMENT '到期日期',
-                        `status` tinyint NOT NULL COMMENT '状态：0-待审批，1-已放款，2-已结清，3-已逾期，4-审批拒绝',
+                        `status` tinyint NOT NULL COMMENT '状态：0-待审批，1-已放款，2-已结清，3-待放款，4-审批拒绝',
                         `approval_user_id` bigint DEFAULT NULL COMMENT '审批人ID',
                         `approval_time` datetime DEFAULT NULL COMMENT '审批时间',
                         `approval_remark` varchar(500) DEFAULT NULL COMMENT '审批备注',
@@ -47,5 +47,5 @@ CREATE TABLE `loan_grant` (
 -- 插入模拟数据（对应之前的贷款数据）
 INSERT INTO `loan_grant` (`loan_id`, `customer_id`, `grant_amount`, `grant_time`, `operator_id`, `remark`, `status`)
 VALUES
-    (2, 2, 1000000.00, '2024-10-22 15:30:00', 1, '首次放款', 1),
-    (4, 1, 2000000.00, '2022-05-16 09:45:00', 1, '固定资产贷款放款', 1);
+    (2, 2, 1000000.00, '2025-08-22 11:00:00', 1, '首次放款', 1),
+    (4, 1, 2000000.00, '2025-08-16 11:00:00', 1, '固定资产贷款放款', 1);

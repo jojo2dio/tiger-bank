@@ -149,6 +149,7 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public List<LoanVO> page(int start, int limit) {
         List<Loan> loans = loanMapper.selectByPage(start, limit);
+        loans.sort( (e1,e2) -> (int) (e1.getId() - e2.getId()));
         return convertToVOList(loans);
     }
 
@@ -171,7 +172,7 @@ public class LoanServiceImpl implements LoanService {
         }
 
         // 检查审批状态是否合法
-        if (approvalDTO.getStatus() != 1 && approvalDTO.getStatus() != 4) {
+        if (approvalDTO.getStatus() != 1 && approvalDTO.getStatus() != 4 && approvalDTO.getStatus() != 5) {
             throw new ServiceException("审批状态只能是已放款(1)或审批拒绝(4)");
         }
 
@@ -183,20 +184,25 @@ public class LoanServiceImpl implements LoanService {
         loan.setUpdateTime(LocalDateTime.now());
 
         // 如果是审批通过，设置放款日期并创建放款记录
-        if (approvalDTO.getStatus() == 1) {
+        if (approvalDTO.getStatus() == 5) {
             loan.setGrantDate(LocalDate.now());
             loanMapper.update(loan);
-
-            // 自动创建放款记录（放款金额等于贷款总金额）
-            LoanGrantDTO grantDTO = new LoanGrantDTO();
-            grantDTO.setLoanId(loan.getId());
-            grantDTO.setGrantAmount(loan.getAmount());
-            grantDTO.setRemark("系统自动创建的放款记录：" + approvalDTO.getApprovalRemark());
-
-            loanGrantService.createGrantRecord(grantDTO, approvalUserId);
-        } else {
-            loanMapper.update(loan);
+//
+//            // 自动创建放款记录（放款金额等于贷款总金额）
+//            LoanGrantDTO grantDTO = new LoanGrantDTO();
+//            grantDTO.setLoanId(loan.getId());
+//            grantDTO.setGrantAmount(loan.getAmount());
+//            grantDTO.setRemark("系统自动创建的放款记录：" + approvalDTO.getApprovalRemark());
+//
+//            loanGrantService.createGrantRecord(grantDTO, approvalUserId);
+//        } else {
+//            loanMapper.update(loan);
         }
+    }
+    @Override
+    public List<Loan> selectByStatus(int status) {
+        // 调用Mapper查询状态为3的贷款
+        return loanMapper.selectByStatus(status);
     }
 
     @Override

@@ -138,6 +138,7 @@ public class RepaymentServiceImpl implements RepaymentService {
             r.setProductName(loanMapper.selectById(r.getLoanId()).getProductName());
             r.setOperatorName((sysUserMapper.getById(r.getOperatorId()).getRealName()));
         });
+        repaymentVOS.sort( (e1,e2) -> (int) (e1.getId() - e2.getId()));
         return repaymentVOS;
     }
 

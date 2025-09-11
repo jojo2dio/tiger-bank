@@ -27,4 +27,6 @@ public interface LoanGrantService {
      * 根据企业ID查询放款记录列表
      */
     List<LoanGrantVO> listByCustomerId(Long customerId);
+
+    List<LoanGrantVO> page(int start, int limit);
 }

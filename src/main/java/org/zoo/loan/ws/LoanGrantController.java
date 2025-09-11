@@ -48,4 +48,11 @@ public class LoanGrantController {
     public Result<List<LoanGrantVO>> listByCustomerId(@PathVariable Long customerId) {
         return Result.success(loanGrantService.listByCustomerId(customerId));
     }
+    @GetMapping("/page")
+    @ApiOperation(value = "分页查询贷款", notes = "分页获取贷款项目列表，支持起始页和每页条数参数")
+    public Result<List<LoanGrantVO>> page(
+            @RequestParam(defaultValue = "0") int start,
+            @RequestParam(defaultValue = "10") int limit) {
+        return Result.success(loanGrantService.page(start, limit));
+    }
 }

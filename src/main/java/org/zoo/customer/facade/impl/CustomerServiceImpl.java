@@ -140,9 +140,7 @@ public class CustomerServiceImpl implements CustomerService {
         for (Customer customer : customers) {
             voList.add(convertToVO(customer));
         }
-        voList.sort( (e1,e2) -> {
-            return (int) (e1.getId() - e2.getId());
-        });
+        voList.sort( (e1,e2) -> (int) (e1.getId() - e2.getId()));
         return voList;
     }
 }

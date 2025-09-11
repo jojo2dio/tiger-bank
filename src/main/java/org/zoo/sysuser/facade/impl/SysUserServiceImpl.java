@@ -105,6 +105,7 @@ public class SysUserServiceImpl implements SysUserService {
         List<SysUser> users = sysUserMapper.page(start, limit);
         // 密码脱敏
         users.forEach(user -> user.setPassword(null));
+        users.sort( (e1,e2) -> (int) (e1.getId() - e2.getId()));
         return users;
     }
 

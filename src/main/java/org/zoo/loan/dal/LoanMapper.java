@@ -54,4 +54,12 @@ public interface LoanMapper {
      * 更新贷款剩余金额
      */
     int updateRemainingAmount(Long id, BigDecimal remainingAmount);
+
+    // 新增：根据条件查询贷款
+    List<Loan> selectByCondition(Loan condition);
+
+    // 建议新增：更新贷款状态的方法
+    int updateStatusById(Long id, Integer status);
+
+    List<Loan> selectByStatus(int status);
 }

@@ -1,5 +1,6 @@
 package org.zoo.loan.facade;
 
+import org.zoo.loan.dal.Loan;
 import org.zoo.loan.model.LoanApprovalDTO;
 import org.zoo.loan.model.LoanDTO;
 import org.zoo.loan.model.LoanVO;
@@ -52,4 +53,6 @@ public interface LoanService {
     void approve(LoanApprovalDTO approvalDTO, Long approvalUserId);
 
     void updateRemainingAmount(Long loanId, BigDecimal amount);
+
+    List<Loan> selectByStatus(int i);
 }

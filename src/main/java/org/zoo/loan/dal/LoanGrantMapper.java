@@ -27,4 +27,6 @@ public interface LoanGrantMapper {
      * 根据企业ID查询放款记录列表
      */
     List<LoanGrant> selectByCustomerId(Long customerId);
+
+    List<LoanGrant> selectByPage(int start, int limit);
 }

@@ -38,3 +38,24 @@ logging:
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"
   file:
     name: logs/tiger-bank.log
+# XXL-Job配置
+xxl:
+  job:
+    admin:
+      # XXL-Job Admin的地址（多个用逗号分隔）
+      addresses: http://127.0.0.1:8081/xxl-job-admin
+    executor:
+      # 执行器名称（需与Admin中配置一致）
+      appname: loan-grant-executor
+      # 执行器注册地址（默认为空，自动注册）
+      address:
+      # 执行器IP（默认为空，自动获取）
+      ip:
+      # 执行器端口（默认9999，若端口被占用会自动+1）
+      port: 9999
+      # 执行器日志路径
+      logpath: /data/applogs/xxl-job/loan-grant-executor
+      # 执行器日志保存天数
+      logretentiondays: 30
+    # 执行器与Admin通信的令牌（需与Admin配置一致，非必填）
+    accessToken: default_token

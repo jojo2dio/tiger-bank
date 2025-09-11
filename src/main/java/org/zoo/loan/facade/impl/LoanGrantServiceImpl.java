@@ -13,6 +13,7 @@ import org.zoo.loan.dal.LoanMapper;
 import org.zoo.loan.facade.LoanGrantService;
 import org.zoo.loan.model.LoanGrantDTO;
 import org.zoo.loan.model.LoanGrantVO;
+import org.zoo.loan.model.LoanVO;
 import org.zoo.sysuser.dal.SysUser;
 import org.zoo.sysuser.dal.SysUserMapper;
 
@@ -49,7 +50,7 @@ public class LoanGrantServiceImpl implements LoanGrantService {
         }
         
         // 验证贷款状态是否为已审批待放款
-        if (loan.getStatus() != 1) {
+        if (loan.getStatus() != 5) {
             throw new ServiceException("只有已放款状态的贷款才能创建放款记录");
         }
         
@@ -88,6 +89,12 @@ public class LoanGrantServiceImpl implements LoanGrantService {
     @Override
     public List<LoanGrantVO> listByCustomerId(Long customerId) {
         List<LoanGrant> grantList = loanGrantMapper.selectByCustomerId(customerId);
+        return convertToVOList(grantList);
+    }
+    @Override
+    public List<LoanGrantVO> page(int start, int limit) {
+        List<LoanGrant> grantList = loanGrantMapper.selectByPage(start, limit);
+        grantList.sort( (e1,e2) -> (int) (e1.getId() - e2.getId()));
         return convertToVOList(grantList);
     }
 

@@ -38,4 +38,11 @@
         ORDER BY grant_time DESC
     </select>
 
+    <!-- 分页查询贷款 -->
+    <select id="selectByPage" resultType="org.zoo.loan.dal.LoanGrant">
+        SELECT <include refid="Base_Column_List"/> FROM loan_grant
+        ORDER BY create_time DESC
+        LIMIT #{start}, #{limit}
+    </select>
+
 </mapper>
